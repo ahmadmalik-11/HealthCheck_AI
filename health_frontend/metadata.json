@@ -1,0 +1,6 @@
+{
+  "name": "HealthCheckAI",
+  "description": "AI-powered health claim classification web application using TF-IDF and LinearSVC evidence comparison.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

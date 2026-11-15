@@ -1,0 +1,188 @@
+{
+  "task": "3-class claim + evidence classification (bag-of-words baseline)",
+  "data_file": "merged_train.csv",
+  "rows_used": 19683,
+  "duplicate_pairs_dropped": 711,
+  "label_counts": {
+    "Refutes": 5407,
+    "Neutral": 5435,
+    "Supports": 8841
+  },
+  "split": {
+    "method": "StratifiedGroupKFold, grouped by normalised claim",
+    "random_state": 42,
+    "fit_rows": 13500,
+    "validation_rows": 2248,
+    "train_rows": 15748,
+    "test_rows": 3935
+  },
+  "features": "word 1-2gram TF-IDF + char_wb 3-5gram TF-IDF",
+  "model": "LinearSVC",
+  "selected_settings": {
+    "C": 0.5,
+    "class_weight": null,
+    "val_accuracy": 0.6619217081850534,
+    "val_macro_f1": 0.6408127051218268
+  },
+  "validation_search": [
+    {
+      "C": 0.25,
+      "class_weight": null,
+      "val_accuracy": 0.6530249110320284,
+      "val_macro_f1": 0.6298411616700458
+    },
+    {
+      "C": 0.5,
+      "class_weight": null,
+      "val_accuracy": 0.6619217081850534,
+      "val_macro_f1": 0.6408127051218268
+    },
+    {
+      "C": 1,
+      "class_weight": null,
+      "val_accuracy": 0.6588078291814946,
+      "val_macro_f1": 0.6371854365442701
+    },
+    {
+      "C": 2,
+      "class_weight": null,
+      "val_accuracy": 0.6565836298932385,
+      "val_macro_f1": 0.6354786828432157
+    },
+    {
+      "C": 4,
+      "class_weight": null,
+      "val_accuracy": 0.6508007117437722,
+      "val_macro_f1": 0.6312294132185291
+    },
+    {
+      "C": 0.25,
+      "class_weight": "balanced",
+      "val_accuracy": 0.6516903914590747,
+      "val_macro_f1": 0.635426918542228
+    },
+    {
+      "C": 0.5,
+      "class_weight": "balanced",
+      "val_accuracy": 0.6552491103202847,
+      "val_macro_f1": 0.6380613740479384
+    },
+    {
+      "C": 1,
+      "class_weight": "balanced",
+      "val_accuracy": 0.6561387900355872,
+      "val_macro_f1": 0.6384765760809109
+    },
+    {
+      "C": 2,
+      "class_weight": "balanced",
+      "val_accuracy": 0.655693950177936,
+      "val_macro_f1": 0.6376164005746657
+    },
+    {
+      "C": 4,
+      "class_weight": "balanced",
+      "val_accuracy": 0.6476868327402135,
+      "val_macro_f1": 0.6305394588307734
+    }
+  ],
+  "validation_baselines": {
+    "majority class": {
+      "accuracy": 0.44928825622775803,
+      "macro_f1": null
+    },
+    "claim only": {
+      "accuracy": 0.49955516014234874,
+      "macro_f1": 0.4640118163572788
+    },
+    "evidence only": {
+      "accuracy": 0.6347864768683275,
+      "macro_f1": 0.6090630158225717
+    },
+    "claim + evidence": {
+      "accuracy": 0.6512455516014235,
+      "macro_f1": 0.6280554274521896
+    }
+  },
+  "test_accuracy": 0.666581956797967,
+  "test_macro_f1": 0.6475169424221557,
+  "test_majority_class_accuracy": 0.4493011435832274,
+  "test_by_rough_source": {
+    "COVID short-evidence": {
+      "n": 1891,
+      "accuracy": 0.6017979904812268,
+      "macro_f1": 0.5877025635935403
+    },
+    "fact-check / rumor style": {
+      "n": 394,
+      "accuracy": 0.6802030456852792,
+      "macro_f1": 0.616392016735881
+    },
+    "news-review style": {
+      "n": 572,
+      "accuracy": 0.6363636363636364,
+      "macro_f1": 0.5803807193484708
+    },
+    "other": {
+      "n": 1078,
+      "accuracy": 0.7912801484230055,
+      "macro_f1": 0.6142622789800645
+    }
+  },
+  "classification_report": {
+    "Neutral": {
+      "precision": 0.7162849872773537,
+      "recall": 0.5184162062615101,
+      "f1-score": 0.6014957264957265,
+      "support": 1086.0
+    },
+    "Refutes": {
+      "precision": 0.5987488829311886,
+      "recall": 0.6197964847363552,
+      "f1-score": 0.6090909090909091,
+      "support": 1081.0
+    },
+    "Supports": {
+      "precision": 0.6847290640394089,
+      "recall": 0.7861990950226244,
+      "f1-score": 0.7319641916798315,
+      "support": 1768.0
+    },
+    "accuracy": 0.666581956797967,
+    "macro avg": {
+      "precision": 0.666587644749317,
+      "recall": 0.6414705953401633,
+      "f1-score": 0.6475169424221557,
+      "support": 3935.0
+    },
+    "weighted avg": {
+      "precision": 0.6698180492639126,
+      "recall": 0.666581956797967,
+      "f1-score": 0.6622018608873123,
+      "support": 3935.0
+    }
+  },
+  "confusion_matrix_rows_true_columns_pred": [
+    [
+      563,
+      201,
+      322
+    ],
+    [
+      93,
+      670,
+      318
+    ],
+    [
+      130,
+      248,
+      1390
+    ]
+  ],
+  "labels": [
+    "Neutral",
+    "Refutes",
+    "Supports"
+  ],
+  "note": "Test split is grouped by claim and was not used for tuning. Labels are dataset annotations, not medical truth."
+}
